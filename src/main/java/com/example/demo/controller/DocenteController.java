@@ -1,5 +1,4 @@
 package com.example.demo.controller;
-
 import com.example.demo.entity.Docente;
 import com.example.demo.service.DocenteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 @RequestMapping("/docenti")
 public class DocenteController {
@@ -18,62 +14,48 @@ public class DocenteController {
     @Autowired
     DocenteService docenteService;
 
-    // LISTA
+    @GetMapping
+    public String redirectToLista() {
+        return "redirect:/docenti/lista";
+    }
+
     @GetMapping("/lista")
     public String list(Model model) {
-        List<Docente> docenti = new ArrayList<>();
-        docenti = docenteService.findAll();
-        model.addAttribute("docenti", docenti);
+        model.addAttribute("docenti", docenteService.findAll());
         return "list-docenti";
     }
 
-    // FORM NUOVO
     @GetMapping("/nuovo")
     public String showAdd(Model model) {
         model.addAttribute("docente", new Docente());
-        return "form-docente";
+        return "nuovo-docenti";
     }
 
-    // SALVA NUOVO
     @PostMapping
-    public String create(@ModelAttribute("docente") Docente docente,
-                         BindingResult br) {
-        if (br.hasErrors()) return "form-docente";
+    public String create(@ModelAttribute("docente") Docente docente, BindingResult br) {
+        if (br.hasErrors()) return "nuovo-docenti";
         docenteService.save(docente);
-        return "redirect:/docenti";
+        return "redirect:/docenti/lista";
     }
 
-    // FORM EDIT
     @GetMapping("/{id}/edit")
     public String showEdit(@PathVariable Long id, Model model) {
         model.addAttribute("docente", docenteService.get(id));
-        return "form-docente";
+        return "nuovo-docenti";
     }
 
-    // AGGIORNA
-    @PostMapping("/{id}")
-    public String update(@PathVariable Long id,
-                         @ModelAttribute("docente") Docente docente,
-                         BindingResult br) {
-        if (br.hasErrors()) return "form-docente";
+    @PostMapping("/{id}/edit")
+    public String update(@PathVariable Long id, @ModelAttribute("docente") Docente docente, BindingResult br) {
+        if (br.hasErrors()) return "nuovo-docenti";
         docente.setId(id);
         docenteService.save(docente);
-        return "redirect:/docenti";
+        return "redirect:/docenti/lista";
     }
 
-    // DELETE
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable Long id) {
         docenteService.delete(id);
-        return "redirect:/docenti";
+        return "redirect:/docenti/lista";
+
     }
-
-
-
-
-
-
-
-
 }
-

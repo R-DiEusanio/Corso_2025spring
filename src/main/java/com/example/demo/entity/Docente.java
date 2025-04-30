@@ -1,6 +1,7 @@
 package com.example.demo.entity;
-
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+import java.util.Date;
 
 @Entity
 @Table(name = "docenti")
@@ -16,19 +17,22 @@ public class Docente {
     @Column(nullable = false)
     private String cognome;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "Data_nascita", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dataNascita;
 
-    /* costruttori */
     public Docente() {}
-    public Docente(String nome, String cognome, String email) {
+
+    public Docente(String nome, String cognome, Date dataNascita) {
         this.nome = nome;
         this.cognome = cognome;
-        this.email = email;
+        this.dataNascita = dataNascita;
     }
 
     public Long getId() {
         return id;
+
     }
 
     public void setId(Long id) {
@@ -51,11 +55,11 @@ public class Docente {
         this.cognome = cognome;
     }
 
-    public String getEmail() {
-        return email;
+    public Date getDataNascita() {
+        return dataNascita;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDataNascita(Date dataNascita) {
+        this.dataNascita = dataNascita;
     }
 }
