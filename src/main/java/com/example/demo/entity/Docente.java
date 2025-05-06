@@ -25,9 +25,11 @@ public class Docente {
     public Docente() {}
 
     public Docente(String nome, String cognome, Date dataNascita) {
+
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
+
     }
 
     public Long getId() {
