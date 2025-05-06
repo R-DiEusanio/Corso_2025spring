@@ -27,7 +27,7 @@ public class DocenteController {
 
     @GetMapping("/nuovo")
     public String showAdd(Model model) {
-        model.addAttribute("docente", new Docente());
+        model.addAttribute("docente", new Docente()); //serve a passare i dati alla JSP
         return "nuovo-docenti";
     }
 

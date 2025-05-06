@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/studenti")
@@ -16,51 +17,62 @@ public class StudenteController {
     StudenteService studenteService;
 
     @GetMapping
-    public String redirectToLista() {return "redirect:/studenti/lista";}
+    public ModelAndView redirectToLista() {
+        return new ModelAndView("redirect:/studenti/lista");
+    }
 
     @GetMapping("/lista")
-    public String list(Model model) {
-        model.addAttribute("studenti" , studenteService.findAll());
-        return "list-studenti";
+    public ModelAndView list(){
+        ModelAndView mav = new ModelAndView("list-studenti");
+        mav.addObject("studenti", studenteService.findAll());
+        return mav;
+
     }
 
     @GetMapping("/nuovo")
-    public String showAdd(Model model) {
-        model.addAttribute("studente", new Studente());
-        return "nuovo-studente";
+    public ModelAndView showAdd() {
+
+        ModelAndView mav = new ModelAndView("nuovo-studente");
+        mav.addObject("studente", new Object());
+        return mav;
 
     }
 
     @PostMapping
-    public String create(@ModelAttribute("studente") Studente studente, BindingResult br) {
-        if (br.hasErrors()) return "nuovo-studente";
+
+    public ModelAndView create(@ModelAttribute("studente") Studente studente, BindingResult br) {
+        if (br.hasErrors()) {
+            return new ModelAndView("nuovo-studente");
+        }
         studenteService.save(studente);
-        return "redirect:/studenti/lista";
+        return new ModelAndView("redirect:/studenti/lista");
 
     }
 
+
     @GetMapping("/{id}/edit")
-    public String showEdit(@PathVariable Long id, Model model) {
-        model.addAttribute("studente", studenteService.get(id));
-        return "nuovo-studente";
+    public ModelAndView showEdit(@PathVariable Long id) {
+        ModelAndView mav = new ModelAndView("nuovo-studente");
+        mav.addObject("studente", studenteService.get(id));
+        return mav;
 
     }
 
     @PostMapping("/{id}/edit")
-    public String update(@PathVariable Long id, @ModelAttribute("studente") Studente studente, BindingResult br) {
-
-        if (br.hasErrors()) return "nuovo-studente";
-        studente.setId(id);
-        studenteService.save(studente);
-        return "redirect:/studenti/lista";
+    public ModelAndView update(@PathVariable Long id, @ModelAttribute("studente") Studente studente, BindingResult br) {
+    if (br.hasErrors()) {
+        return new ModelAndView("nuovo-studente");
+    }
+    studente.setId(id);
+    studenteService.save(studente);
+    return new ModelAndView("redirect:/studenti/lista");
 
     }
 
     @GetMapping("/{id}/delete")
-    public String delete(@PathVariable Long id) {
+    public ModelAndView delete(@PathVariable Long id) {
         studenteService.delete(id);
-        return "redirect:/studenti/lista";
-
+        return new ModelAndView("redirect:/studenti/lista");
     }
 
     }
