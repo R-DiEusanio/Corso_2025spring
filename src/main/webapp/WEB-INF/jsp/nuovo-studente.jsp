@@ -19,7 +19,6 @@
         </c:choose>
     </h2>
 
-    <!-- Imposta l'action dinamicamente -->
     <c:choose>
         <c:when test="${not empty studente.id}">
             <c:set var="formAction" value="${pageContext.request.contextPath}/studenti/${studente.id}/edit"/>

@@ -1,8 +1,5 @@
 package com.example.demo.entity;
 import jakarta.persistence.*;
-import jdk.jfr.DataAmount;
-import org.springframework.format.annotation.DateTimeFormat;
-import java.util.Date;
 
 @Entity
 @Table(name = "studenti")
