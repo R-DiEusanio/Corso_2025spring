@@ -28,7 +28,8 @@
 
 <h1>Elenco Docenti</h1>
 
-<a class="btn btn-primary mb-3" href="<c:url value='/docenti/nuovo'/>">Nuovo Docente</a>
+<a class="btn btn-primary" href="<c:url value='/docenti/nuovo'/>">Nuovo Docente</a>
+<a href="/docenti/nome/Alex" class="btn btn-primary">Filtra per nome Alex</a>
 
 <table class="table table-striped">
     <thead>
@@ -50,6 +51,7 @@
                 <a class="btn btn-sm btn-secondary" href="<c:url value='/docenti/${d.id}/edit'/>">Modifica</a>
                 <a class="btn btn-sm btn-danger" href="<c:url value='/docenti/${d.id}/delete'/>"
                    onclick="return confirm('Sei sicuro?')">Elimina</a>
+
             </td>
         </tr>
     </c:forEach>

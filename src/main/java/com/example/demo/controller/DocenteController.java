@@ -6,6 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/docenti")
@@ -58,4 +61,13 @@ public class DocenteController {
         return "redirect:/docenti/lista";
 
     }
-}
+
+        @GetMapping("/nome/{nome}")
+        public ModelAndView mostraDocentiPerNome(@PathVariable String nome) {
+            List<Docente> lista = docenteService.cercaNome(nome);
+            ModelAndView mav = new ModelAndView("list-docenti");
+            mav.addObject("docenti", lista);
+            return mav;
+        }
+    }
+

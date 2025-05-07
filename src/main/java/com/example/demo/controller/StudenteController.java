@@ -1,13 +1,13 @@
 package com.example.demo.controller;
-import com.example.demo.entity.Docente;
 import com.example.demo.entity.Studente;
 import com.example.demo.service.StudenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/studenti")
@@ -74,6 +74,32 @@ public class StudenteController {
         studenteService.delete(id);
         return new ModelAndView("redirect:/studenti/lista");
     }
+
+    @GetMapping("/maggiorenni")
+    public ModelAndView mostraMaggiorenni() {
+        List<Studente> lista = studenteService.maggiorenni();
+        ModelAndView mv = new ModelAndView("maggiorenni");
+        mv.addObject("studenti", lista);
+        return mv;
+    }
+
+    @GetMapping("/citta/{nomeCitta}")
+    public ModelAndView mostraStudentiPerCitta(@PathVariable String nomeCitta) {
+        List<Studente> lista = studenteService.residenza(nomeCitta);
+        ModelAndView mav = new ModelAndView("list-studenti");
+        mav.addObject("studenti", lista);
+        return mav;
+    }
+
+    @GetMapping("/ordinati")
+    public ModelAndView mostraStudentiOrdinatiPerNome() {
+        List<Studente> lista = studenteService.StudentiOrdinatiPerNome(); // A → Z
+        ModelAndView mav = new ModelAndView("list-studenti");
+        mav.addObject("studenti", lista);
+        return mav;
+    }
+
+
 
     }
 

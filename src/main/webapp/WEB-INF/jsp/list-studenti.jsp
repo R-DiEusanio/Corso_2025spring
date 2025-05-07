@@ -27,7 +27,16 @@
     <h2 class="text-center">Elenco Studenti</h2>
 
     <div class="text-center mb-3">
+
         <a class="btn btn-primary" href="/studenti/nuovo"> Aggiungi Nuovo Studente</a>
+        <a class="btn btn-warning" href="/studenti/maggiorenni">Vedi Maggiorenni</a>
+        <a class="btn btn-info" href="${pageContext.request.contextPath}/studenti/citta/Teramo">
+         Filtra per città: Teramo
+        </a>
+        <a href="/studenti/ordinati" class="btn btn-primary">
+            Ordina per Nome (A-Z)
+        </a>
+
     </div>
 
     <table class="table table-bordered table-striped">
@@ -54,6 +63,7 @@
                 <td>${studente.matricola}</td>
                 <td>${studente.cittaResidenza}</td>
                 <td>
+
                     <a class="btn btn-sm btn-secondary" href="/studenti/${studente.id}/edit">Modifica</a>
                     <a class="btn btn-sm btn-danger" href="/studenti/${studente.id}/delete"
                        onclick="return confirm('Sei sicuro di voler eliminare questo studente?')">Elimina</a>
