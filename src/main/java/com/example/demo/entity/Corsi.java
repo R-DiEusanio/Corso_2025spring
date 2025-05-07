@@ -12,7 +12,7 @@ public class Corsi {
     @Column(name = "nome_corso", nullable = false)
     private String nomeCorso;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "id_doc")
     private Docente docente;
 

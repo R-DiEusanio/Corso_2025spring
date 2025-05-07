@@ -14,7 +14,7 @@ public class CorsiService {
     CorsiRepository corsiRepository;
 
     public List<Corsi> findAll() {
-        return corsiRepository.findAllConDocenti();
+        return corsiRepository.findAll();
     }
 
     public Corsi get(Long id) {

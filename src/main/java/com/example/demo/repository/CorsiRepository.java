@@ -8,8 +8,5 @@ import java.util.List;
 
 public interface CorsiRepository extends JpaRepository<Corsi, Long> {
 
-    @Query("SELECT c FROM Corsi c LEFT JOIN FETCH c.docente")
-    List<Corsi> findAllConDocenti();
-
 
 }
