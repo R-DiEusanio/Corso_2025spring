@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.List;
 
 @Controller
@@ -39,7 +38,6 @@ public class StudenteController {
     }
 
     @PostMapping
-
     public ModelAndView create(@ModelAttribute("studente") Studente studente, BindingResult br) {
         if (br.hasErrors()) {
             return new ModelAndView("nuovo-studente");
@@ -98,8 +96,6 @@ public class StudenteController {
         mav.addObject("studenti", lista);
         return mav;
     }
-
-
 
     }
 

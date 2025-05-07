@@ -13,7 +13,10 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/studenti/lista">Studenti</a>
+                    <a class="nav-link" href="/studenti/lista">Studenti</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/corsi/lista">Corsi</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/docenti/lista">Docenti</a>
@@ -22,6 +25,7 @@
         </div>
     </div>
 </nav>
+
 
 <div class="container mt-4">
     <h2 class="text-center">Elenco Studenti</h2>

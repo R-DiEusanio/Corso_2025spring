@@ -2,13 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Studenti Maggiorenni</title>
+    <title>Studenti trentenni</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
 </head>
 <body>
 
 <div class="container mt-4">
-    <h2 class="text-center mb-4">Lista Studenti Maggiorenni</h2>
+    <h2 class="text-center mb-4">Lista Studenti trentenni</h2>
 
     <table class="table table-striped table-bordered">
         <thead class="table-dark">
