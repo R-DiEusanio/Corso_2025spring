@@ -91,7 +91,7 @@ public class StudenteController {
 
     @GetMapping("/ordinati")
     public ModelAndView mostraStudentiOrdinatiPerNome() {
-        List<Studente> lista = studenteService.StudentiOrdinatiPerNome(); // A → Z
+        List<Studente> lista = studenteService.StudentiOrdinatiPerNome();
         ModelAndView mav = new ModelAndView("list-studenti");
         mav.addObject("studenti", lista);
         return mav;

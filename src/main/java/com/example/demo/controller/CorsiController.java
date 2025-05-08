@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 import com.example.demo.entity.Corsi;
 import com.example.demo.service.CorsiService;
+import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,8 @@ public class CorsiController {
 
     @Autowired
     CorsiService corsiService;
+
+    @Autowired
     DocenteService docenteService;
 
     @GetMapping
@@ -70,6 +73,14 @@ public class CorsiController {
     public ModelAndView delete(@PathVariable Long id) {
         corsiService.delete(id);
         return new ModelAndView("redirect:/corsi/lista");
+    }
+
+    @GetMapping("/ordinati")
+    public ModelAndView CorsiOrdinatiIdDocenti() {
+        List<Corsi> lista = corsiService.CorsiOrdinatiIdDocente();
+        ModelAndView mav =  new ModelAndView("list-corsi");
+        mav.addObject("corsi" ,lista);
+        return mav;
     }
 
 }

@@ -32,6 +32,7 @@
 
     <div class="mb-3 text-center">
         <a class="btn btn-success" href="/corsi/nuovo">Aggiungi Nuovo Corso</a>
+        <a class="btn btn-info" href="/corsi/ordinati">Ordina per Id docente</a>
     </div>
 
     <table class="table table-striped table-bordered">
@@ -53,7 +54,7 @@
                 <td>
                     <c:choose>
                         <c:when test="${not empty corso.docente}">
-                            ${corso.docente.id}
+                               ${corso.docente.nome}
                         </c:when>
                         <c:otherwise>
                             <em>Non assegnato</em>

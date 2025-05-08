@@ -31,4 +31,9 @@ public class CorsiService {
 
     }
 
+    public List<Corsi> CorsiOrdinatiIdDocente() {
+        return corsiRepository.CorsiOrdinatiIdDocenti();
+    }
+
+
 }

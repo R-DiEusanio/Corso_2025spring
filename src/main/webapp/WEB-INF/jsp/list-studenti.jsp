@@ -33,8 +33,8 @@
     <div class="text-center mb-3">
 
         <a class="btn btn-primary" href="/studenti/nuovo"> Aggiungi Nuovo Studente</a>
-        <a class="btn btn-warning" href="/studenti/maggiorenni">Vedi Maggiorenni</a>
-        <a class="btn btn-info" href="${pageContext.request.contextPath}/studenti/citta/Teramo">
+       <a class="btn btn-warning" href="/studenti/maggiorenni">Vedi Trentenni</a>
+        <a class="btn btn-info" href="/studenti/citta/Teramo">
          Filtra per città: Teramo
         </a>
         <a href="/studenti/ordinati" class="btn btn-primary">
