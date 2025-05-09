@@ -32,7 +32,6 @@
                            value="${corso.annoAccademico}" required />
                 </div>
 
-                <!-- CAMPO MODIFICATO -->
                 <div class="mb-4">
                     <label class="form-label fw-semibold">ID Docente</label>
                     <input type="number" class="form-control" name="docente.id"

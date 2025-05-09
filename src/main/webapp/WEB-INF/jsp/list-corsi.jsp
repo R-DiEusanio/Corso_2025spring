@@ -14,7 +14,7 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/studenti/lista">Studenti</a>
+                    <a class="nav-link" href="/discenti/lista">Discenti</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="/corsi/lista">Corsi</a>
@@ -42,6 +42,7 @@
             <th>Nome Corso</th>
             <th>Anno Accademico</th>
             <th>Docente</th>
+            <th>Discenti iscritti</th>
             <th>Azioni</th>
         </tr>
         </thead>
@@ -54,13 +55,27 @@
                 <td>
                     <c:choose>
                         <c:when test="${not empty corso.docente}">
-                               ${corso.docente.nome}
+                            ${corso.docente.nome}
                         </c:when>
                         <c:otherwise>
                             <em>Non assegnato</em>
                         </c:otherwise>
                     </c:choose>
                 </td>
+
+                <td>
+                    <c:choose>
+                        <c:when test="${not empty corso.discenti}">
+                            <c:forEach var="discente" items="${corso.discenti}">
+                                ${discente.nome} ${discente.cognome}<br/>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <em>Nessuno discente iscritto</em>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+
                 <td>
                     <a class="btn btn-sm btn-secondary" href="/corsi/${corso.id}/edit">Modifica</a>
                     <a class="btn btn-sm btn-danger" href="/corsi/${corso.id}/delete"

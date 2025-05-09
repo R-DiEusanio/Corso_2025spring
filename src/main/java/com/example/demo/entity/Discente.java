@@ -1,9 +1,10 @@
 package com.example.demo.entity;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "studenti")
-public class Studente {
+public class Discente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,15 +25,24 @@ public class Studente {
     @Column(name = "città_residenza" , nullable = false)
     private String cittaResidenza;
 
-    public Studente() {}
+    @ManyToMany
+    @JoinTable(
+            name = "studenti_corsi",
+            joinColumns = @JoinColumn(name = "id_studenti"),
+            inverseJoinColumns = @JoinColumn(name = "id_corso")
+    )
+    private List<Corsi> corsi;
 
-    public Studente(String nome, String cognome, String matricola, Integer eta, String cittaResidenza) {
+    public Discente() {}
+
+    public Discente(String nome, String cognome, String matricola, Integer eta, String cittaResidenza, List<Corsi> corsi) {
 
         this.nome = nome;
         this.cognome = cognome;
         this.matricola = matricola;
         this.eta = eta;
         this.cittaResidenza = cittaResidenza;
+        this.corsi = corsi;
 
     }
 
@@ -84,4 +94,11 @@ public class Studente {
         this.cittaResidenza = cittaResidenza;
     }
 
+    public List<Corsi> getCorsi() {
+        return corsi;
+    }
+
+    public void setCorsi(List<Corsi> corsi) {
+        this.corsi = corsi;
+    }
 }

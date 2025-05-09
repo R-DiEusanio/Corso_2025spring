@@ -35,5 +35,9 @@ public class CorsiService {
         return corsiRepository.CorsiOrdinatiIdDocenti();
     }
 
+    public List<Corsi> findByIds(List<Long> ids) {
+        return corsiRepository.findAllById(ids);
+    }
+
 
 }
