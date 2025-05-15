@@ -1,19 +1,22 @@
 package com.example.demo.data.dto;
 
+import java.time.LocalDate;
+
 public class DocenteDTO {
 
     private Long id;
     private String nome;
     private String cognome;
+    private LocalDate dataNascita;
 
     public DocenteDTO() {
-
     }
 
-    public DocenteDTO(Long id, String nome, String cognome) {
+    public DocenteDTO(Long id, String nome, String cognome, LocalDate dataNascita) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
+        this.dataNascita = dataNascita;
     }
 
     public Long getId() {
@@ -40,4 +43,11 @@ public class DocenteDTO {
         this.cognome = cognome;
     }
 
+    public LocalDate getDataNascita() {
+        return dataNascita;
+    }
+
+    public void setDataNascita(LocalDate dataNascita) {
+        this.dataNascita = dataNascita;
+    }
 }

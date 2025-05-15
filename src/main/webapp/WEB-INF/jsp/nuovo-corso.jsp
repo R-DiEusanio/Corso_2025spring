@@ -15,7 +15,15 @@
                 ${corso.id == null ? 'Aggiungi Nuovo Corso' : 'Modifica Corso'}
             </h2>
 
-            <form action="/corsi" method="post" class="needs-validation" novalidate>
+            <c:choose>
+                <c:when test="${corso.id != null}">
+                    <form action="/corsi/${corso.id}/edit" method="post">
+                </c:when>
+                <c:otherwise>
+                    <form action="/corsi" method="post">
+                </c:otherwise>
+            </c:choose>
+
                 <c:if test="${corso.id != null}">
                     <input type="hidden" name="id" value="${corso.id}" />
                 </c:if>
@@ -33,9 +41,16 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class="form-label fw-semibold">ID Docente</label>
-                    <input type="number" class="form-control" name="docente.id"
-                           value="${corso.docente != null ? corso.docente.id : ''}" required />
+                    <label class="form-label fw-semibold">Docente</label>
+                    <select class="form-select" name="docente.id" required>
+                        <option value="">-- Seleziona Docente --</option>
+                        <c:forEach var="docente" items="${docenti}">
+                            <option value="${docente.id}"
+                                <c:if test="${corso.docente != null && corso.docente.id == docente.id}">selected</c:if>>
+                                ${docente.nome} ${docente.cognome}
+                            </option>
+                        </c:forEach>
+                    </select>
                 </div>
 
                 <div class="d-flex justify-content-between">

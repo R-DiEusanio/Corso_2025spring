@@ -1,7 +1,8 @@
 package com.example.demo.entity;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import java.util.Date;
+import java.time.LocalDate;
+
 
 @Entity
 @Table(name = "docenti")
@@ -17,14 +18,13 @@ public class Docente {
     @Column(nullable = false)
     private String cognome;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "Data_nascita", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dataNascita;
+    private LocalDate dataNascita;
 
     public Docente() {}
 
-    public Docente(String nome, String cognome, Date dataNascita) {
+    public Docente(String nome, String cognome, LocalDate dataNascita) {
 
         this.nome = nome;
         this.cognome = cognome;
@@ -57,11 +57,11 @@ public class Docente {
         this.cognome = cognome;
     }
 
-    public Date getDataNascita() {
+    public LocalDate getDataNascita() {
         return dataNascita;
     }
 
-    public void setDataNascita(Date dataNascita) {
+    public void setDataNascita(LocalDate dataNascita) {
         this.dataNascita = dataNascita;
     }
 }

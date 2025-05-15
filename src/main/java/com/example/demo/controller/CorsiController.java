@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 import com.example.demo.entity.Corsi;
 import com.example.demo.service.CorsiService;
-import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
+import com.example.demo.service.DocenteService;
+import com.example.demo.data.dto.CorsiDTO;
+import com.example.demo.mapper.CorsiMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
-import com.example.demo.service.DocenteService;
+
 
 
 @Controller
@@ -22,6 +24,9 @@ public class CorsiController {
     @Autowired
     DocenteService docenteService;
 
+    @Autowired
+    private CorsiMapper corsiMapper;
+
     @GetMapping
     public ModelAndView redirectToLista() {
         return new ModelAndView("redirect:/corsi/lista");
@@ -29,9 +34,14 @@ public class CorsiController {
 
     @GetMapping("/lista")
     public ModelAndView list() {
+
+        List<Corsi> lista = corsiService.findAll();
+        List<CorsiDTO> listaDTO = lista.stream().map(corsiMapper::toDTO).toList();
+
         ModelAndView mav = new ModelAndView("list-corsi");
-        mav.addObject("corsi", corsiService.findAll());
+        mav.addObject("corsi",listaDTO);
         return mav;
+
     }
 
     @GetMapping("/nuovo")
@@ -78,9 +88,12 @@ public class CorsiController {
     @GetMapping("/ordinati")
     public ModelAndView CorsiOrdinatiIdDocenti() {
         List<Corsi> lista = corsiService.CorsiOrdinatiIdDocente();
-        ModelAndView mav =  new ModelAndView("list-corsi");
-        mav.addObject("corsi" ,lista);
+        List<CorsiDTO> listaDTO = lista.stream().map(corsiMapper::toDTO).toList();
+
+        ModelAndView mav = new ModelAndView("list-corsi");
+        mav.addObject("corsi", listaDTO);
         return mav;
+
     }
 
 }

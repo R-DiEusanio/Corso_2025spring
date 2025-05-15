@@ -52,10 +52,11 @@
                 <td>${corso.id}</td>
                 <td>${corso.nomeCorso}</td>
                 <td>${corso.annoAccademico}</td>
+
                 <td>
                     <c:choose>
-                        <c:when test="${not empty corso.docente}">
-                            ${corso.docente.nome}
+                        <c:when test="${not empty corso.docenteNome}">
+                            ${corso.docenteNome}
                         </c:when>
                         <c:otherwise>
                             <em>Non assegnato</em>
@@ -65,9 +66,10 @@
 
                 <td>
                     <c:choose>
-                        <c:when test="${not empty corso.discenti}">
-                            <c:forEach var="discente" items="${corso.discenti}">
-                                ${discente.nome} ${discente.cognome}<br/>
+                        <c:when test="${not empty corso.discentiNomi}">
+                            <c:forEach var="discente" items="${corso.discentiNomi}">
+                                ${discente}
+                                <br/>
                             </c:forEach>
                         </c:when>
                         <c:otherwise>
