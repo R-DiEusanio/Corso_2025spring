@@ -1,5 +1,8 @@
 package com.example.demo.controller;
+import com.example.demo.data.dto.DiscenteDTO;
+import com.example.demo.data.dto.DocenteDTO;
 import com.example.demo.entity.Discente;
+import com.example.demo.entity.Docente;
 import com.example.demo.service.DiscenteService;
 import com.example.demo.service.CorsiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +29,12 @@ public class DiscenteController {
 
     @GetMapping("/lista")
     public ModelAndView list(){
+        List<DiscenteDTO> lista = discenteService.findAll();
         ModelAndView mav = new ModelAndView("list-discenti");
-        mav.addObject("discenti", discenteService.findAll());
+        mav.addObject("discenti",lista);
         return mav;
 
     }
-
 
     @GetMapping("/nuovo")
     public ModelAndView showAdd() {
@@ -80,26 +83,20 @@ public class DiscenteController {
 
     @GetMapping("/maggiorenni")
     public ModelAndView mostraMaggiorenni() {
-        List<Discente> lista = discenteService.maggiorenni();
-        ModelAndView mv = new ModelAndView("maggiorenni");
-        mv.addObject("discenti", lista);
-        return mv;
-    }
-
-    @GetMapping("/citta/{nomeCitta}")
-    public ModelAndView mostraDiscentiPerCitta(@PathVariable String nomeCitta) {
-        List<Discente> lista = discenteService.residenza(nomeCitta);
-        ModelAndView mav = new ModelAndView("list-discenti");
-        mav.addObject("discenti", lista);
+        List<DiscenteDTO> lista = discenteService.maggiorenni();
+        ModelAndView mav = new ModelAndView("maggiorenni");
+        mav.addObject("discenti",lista);
         return mav;
+
     }
 
     @GetMapping("/ordinati")
     public ModelAndView mostraDiscentiOrdinatiPerNome() {
-        List<Discente> lista = discenteService.DiscentiOrdinatiPerNome();
+        List<DiscenteDTO> lista = discenteService.DiscentiOrdinatiPerNome();
         ModelAndView mav = new ModelAndView("list-discenti");
         mav.addObject("discenti", lista);
         return mav;
+
     }
 
     }

@@ -2,7 +2,6 @@ package com.example.demo.controller;
 import com.example.demo.entity.Docente;
 import com.example.demo.service.DocenteService;
 import com.example.demo.data.dto.DocenteDTO;
-import com.example.demo.converter.DocenteConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,11 +25,8 @@ public class DocenteController {
 
     @GetMapping("/lista")
     public String list(Model model) {
-        List<Docente> docenti = docenteService.findAll();
-        List<DocenteDTO> docentiDTO = docenti.stream()
-                .map(DocenteConverter::toDTO)
-                .collect(Collectors.toList());
-        model.addAttribute("docenti", docentiDTO);
+        List<DocenteDTO> docenti = docenteService.findAll();
+        model.addAttribute("docenti", docenti);
         return "list-docenti";
     }
 
@@ -70,12 +66,9 @@ public class DocenteController {
 
     @GetMapping("/nome/{nome}")
     public ModelAndView mostraDocentiPerNome(@PathVariable String nome) {
-        List<Docente> lista = docenteService.cercaNome(nome);
-        List<DocenteDTO> listaDTO = lista.stream()
-                .map(DocenteConverter::toDTO)
-                .collect(Collectors.toList());
+        List<DocenteDTO> listaDTO =  docenteService.cercaNome(nome);
         ModelAndView mav = new ModelAndView("list-docenti");
-        mav.addObject("docenti", listaDTO);
+        mav.addObject("docenti",listaDTO);
         return mav;
     }
 }

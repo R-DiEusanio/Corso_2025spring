@@ -1,18 +1,36 @@
 package com.example.demo.service;
 import com.example.demo.entity.Discente;
+import com.example.demo.data.dto.DiscenteDTO;
 import com.example.demo.repository.DiscenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.modelmapper.ModelMapper;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DiscenteService {
 
     @Autowired
-    DiscenteRepository discenteRepository;
+    private DiscenteRepository discenteRepository;
 
-    public List<Discente> findAll() {
-        return discenteRepository.findAll();
+    @Autowired
+    private ModelMapper modelMapper;
+
+    private DiscenteDTO toDto(Discente discente) {
+        return modelMapper.map(discente, DiscenteDTO.class);
+    }
+
+    private Discente toEntity(DiscenteDTO dto) {
+        return modelMapper.map(dto, Discente.class);
+    }
+
+    public List<DiscenteDTO> findAll() {
+        return discenteRepository.findAll()
+                .stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
     }
 
     public Discente get(Long id) {
@@ -27,18 +45,17 @@ public class DiscenteService {
         discenteRepository.deleteById(id);
     }
 
-    public List<Discente> maggiorenni() {
-        return discenteRepository.trovaTuttiMaggiorenni(30);
+    public List<DiscenteDTO> maggiorenni() {
+        return discenteRepository.trovaTuttiMaggiorenni(30)
+                .stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
     }
 
-    public List<Discente> residenza(String citta) {
-        return discenteRepository.trovaResidenza(citta);
-
+    public List<DiscenteDTO> DiscentiOrdinatiPerNome() {
+        return discenteRepository.DiscentiOrdinatiPerNome()
+                .stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
     }
-
-    public List<Discente> DiscentiOrdinatiPerNome() {
-        return discenteRepository.DiscentiOrdinatiPerNome();
-    }
-
-    }
-
+}
