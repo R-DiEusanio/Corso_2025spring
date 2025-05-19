@@ -31,8 +31,6 @@
 
     <div class="text-center mb-3">
         <a class="btn btn-primary" href="/discenti/nuovo">Aggiungi Nuovo Discente</a>
-        <a class="btn btn-warning" href="/discenti/maggiorenni">Vedi Trentenni</a>
-        <a class="btn btn-info" href="/discenti/citta/Teramo">Filtra per città: Teramo</a>
         <a href="/discenti/ordinati" class="btn btn-primary">Ordina per Nome (A-Z)</a>
     </div>
 
@@ -42,9 +40,6 @@
             <th>ID</th>
             <th>Nome</th>
             <th>Cognome</th>
-            <th>Età</th>
-            <th>Matricola</th>
-            <th>Città di Residenza</th>
             <th>Corsi Iscritti</th>
             <th>Azioni</th>
         </tr>
@@ -55,9 +50,6 @@
                 <td>${discente.id}</td>
                 <td>${discente.nome}</td>
                 <td>${discente.cognome}</td>
-                <td>${discente.eta}</td>
-                <td>${discente.matricola}</td>
-                <td>${discente.cittaResidenza}</td>
                 <td>
                     <c:forEach var="corso" items="${discente.corsi}">
                         ${corso.nomeCorso}<br/>

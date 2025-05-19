@@ -81,15 +81,6 @@ public class DiscenteController {
         return new ModelAndView("redirect:/discenti/lista");
     }
 
-    @GetMapping("/maggiorenni")
-    public ModelAndView mostraMaggiorenni() {
-        List<DiscenteDTO> lista = discenteService.maggiorenni();
-        ModelAndView mav = new ModelAndView("maggiorenni");
-        mav.addObject("discenti",lista);
-        return mav;
-
-    }
-
     @GetMapping("/ordinati")
     public ModelAndView mostraDiscentiOrdinatiPerNome() {
         List<DiscenteDTO> lista = discenteService.DiscentiOrdinatiPerNome();
