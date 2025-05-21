@@ -1,12 +1,10 @@
 package com.example.demo.service;
-
 import com.example.demo.data.dto.DocenteDTO;
 import com.example.demo.entity.Docente;
 import com.example.demo.repository.DocenteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
