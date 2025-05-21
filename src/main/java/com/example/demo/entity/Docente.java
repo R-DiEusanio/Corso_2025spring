@@ -2,7 +2,7 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "docenti")
@@ -19,7 +19,7 @@ public class Docente {
     private String cognome;
 
     @Column(name = "Data_nascita", nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascita;
 
     public Docente() {}

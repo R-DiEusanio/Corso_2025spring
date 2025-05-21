@@ -6,7 +6,6 @@ public class CorsiDTO {
     private Long id;
     private String nomeCorso;
     private Integer annoAccademico;
-
     private String docenteNome;
     private List<String> discentiNomi;
 

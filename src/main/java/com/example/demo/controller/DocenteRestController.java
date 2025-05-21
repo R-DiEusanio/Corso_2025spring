@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.Doc;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/docenti")
+@RequestMapping("/docenti")
 public class DocenteRestController {
 
     @Autowired
@@ -35,23 +36,29 @@ public class DocenteRestController {
     }
 
     @PostMapping
-    public ResponseEntity<DocenteDTO> create(@RequestBody Docente docente) {
-        Docente salvato = docenteService.save(docente);
+    public ResponseEntity<DocenteDTO> create(@RequestBody DocenteDTO dto) {
+        Docente entity = docenteMapper.toEntity(dto);
+        Docente salvato = docenteService.save(entity);
         return ResponseEntity.ok(docenteMapper.toDTO(salvato));
     }
 
     @PutMapping("/{id}")
-        public ResponseEntity<DocenteDTO> update(@PathVariable Long id, @RequestBody Docente docente) {
-            docente.setId(id);
-            Docente aggiornato = docenteService.save(docente);
-            return ResponseEntity.ok(docenteMapper.toDTO(aggiornato));
+    public ResponseEntity<DocenteDTO> update(@PathVariable Long id, @RequestBody DocenteDTO dto) {
+        Docente esistente = docenteService.get(id);
+
+        esistente.setNome(dto.getNome());
+        esistente.setCognome(dto.getCognome());
+        esistente.setDataNascita(dto.getDataNascita());
+
+        Docente aggiornato = docenteService.save(esistente);
+        return ResponseEntity.ok(docenteMapper.toDTO(aggiornato));
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         docenteService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
 
 }

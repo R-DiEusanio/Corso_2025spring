@@ -13,7 +13,7 @@ public class Corsi {
     private Long id;
 
     @Column(name = "nome_corso", nullable = false)
-    private String nomeCorso;
+    public String nomeCorso;
 
     @ManyToOne
     @JoinColumn(name = "id_doc")
