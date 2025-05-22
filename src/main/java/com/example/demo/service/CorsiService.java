@@ -5,6 +5,7 @@ import com.example.demo.repository.CorsiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -39,5 +40,8 @@ public class CorsiService {
         return corsiRepository.findAllById(ids);
     }
 
+    public List<Corsi> findByNomeCorso(String nomeCorso) {
+        return corsiRepository.trovaPerNome(nomeCorso);
+    }
 
 }

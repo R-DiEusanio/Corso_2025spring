@@ -4,6 +4,7 @@ import com.example.demo.repository.DiscenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DiscenteService {
@@ -38,6 +39,10 @@ public class DiscenteService {
 
     public List<Discente> DiscentiOrdinatiPerNome() {
         return discenteRepository.DiscentiOrdinatiPerNome();
+    }
+
+    public Optional<Discente> findByCompleto(String nomeCompleto) {
+        return discenteRepository.findByNomeCompleto(nomeCompleto);
     }
 
     }

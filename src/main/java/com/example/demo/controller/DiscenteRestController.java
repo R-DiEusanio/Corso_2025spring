@@ -57,7 +57,7 @@ public class DiscenteRestController{
         Discente esistente = discenteService.get(id);
 
         esistente.setNome(dto.getNome());
-        esistente.setNome(dto.getCognome());
+        esistente.setCognome(dto.getCognome());
         esistente.setMatricola(dto.getMatricola());
         esistente.setEta(dto.getEta());
         esistente.setCittaResidenza(dto.getCittaResidenza());

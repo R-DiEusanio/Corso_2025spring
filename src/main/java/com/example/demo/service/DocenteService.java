@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DocenteService {
@@ -31,6 +32,10 @@ public class DocenteService {
 
     public List<Docente> cercaNome(String nome) {
         return docenteRepository.trovaPerNome(nome);
-
     }
+
+    public Optional<Docente> findByNomeCompleto(String nomeCompleto) {
+        return docenteRepository.findByNomeCompleto(nomeCompleto);
+    }
+
 }
