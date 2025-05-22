@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -53,29 +55,52 @@ public class CorsiRestController {
     public ResponseEntity<CorsiDTO> create(@RequestBody CorsiDTO dto) {
 
         Docente docente = docenteService.findByNomeCompleto(dto.getDocenteNome())
-                .orElseThrow(() -> new RuntimeException("docente non trovato"));
+                .orElseGet(() -> {
+                    String[] split = dto.getDocenteNome().split(" ");
+                    Docente nuovoDocente = new Docente(split[0], split[1], LocalDate.now()); // Inserisci dataNascita fittizia
+                    return docenteService.save(nuovoDocente);
+                });
 
-        List<Discente> discenti = dto.getDiscentiNomi().stream().map(nome -> discenteService.findByCompleto(nome).orElseThrow(()-> new RuntimeException("discente non trovato: " +nome))).collect(Collectors.toList());
+
+        List<Discente> discenti = dto.getDiscentiNomi().stream()
+                .map(nome -> discenteService.findByCompleto(nome)
+                        .orElseGet(() -> {
+                            String[] split = nome.split(" ");
+                            Discente nuovo = new Discente(split[0], split[1], "sconosciuta", 0, "sconosciuta", new ArrayList<>());
+                            return discenteService.save(nuovo);
+                        }))
+                .collect(Collectors.toList());
 
         Corsi corsi = new Corsi();
-
         corsi.setNomeCorso(dto.getNomeCorso());
         corsi.setAnnoAccademico(dto.getAnnoAccademico());
         corsi.setDocente(docente);
         corsi.setDiscenti(discenti);
 
         return ResponseEntity.ok(corsiMapper.toDTO(corsiService.save(corsi)));
-
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<CorsiDTO> update(@PathVariable Long id, @RequestBody CorsiDTO dto) {
 
         Corsi esistente = corsiService.get(id);
 
-        Docente docente = docenteService.findByNomeCompleto(dto.getDocenteNome()).orElseThrow(()-> new RuntimeException("docente non trovato: " +dto.getDocenteNome()));
+        Docente docente = docenteService.findByNomeCompleto(dto.getDocenteNome())
+                .orElseGet(() -> {
+                    String[] split = dto.getDocenteNome().split(" ");
+                    Docente nuovoDocente = new Docente(split[0], split[1], LocalDate.now());
+                    return docenteService.save(nuovoDocente);
+                });
 
-        List<Discente> discenti = dto.getDiscentiNomi().stream().map(nome->discenteService.findByCompleto(nome).orElseThrow(()-> new RuntimeException("docente non trovato: " +nome))).collect(Collectors.toList());
+        List<Discente> discenti = dto.getDiscentiNomi().stream()
+                .map(nome -> discenteService.findByCompleto(nome)
+                        .orElseGet(() -> {
+                            String[] split = nome.split(" ");
+                            Discente nuovo = new Discente(split[0], split[1], "sconosciuta", 0, "sconosciuta", new ArrayList<>());
+                            return discenteService.save(nuovo);
+                        }))
+                .collect(Collectors.toList());
 
         esistente.setNomeCorso(dto.getNomeCorso());
         esistente.setAnnoAccademico(dto.getAnnoAccademico());
@@ -84,8 +109,8 @@ public class CorsiRestController {
 
         Corsi aggiornato = corsiService.save(esistente);
         return ResponseEntity.ok(corsiMapper.toDTO(aggiornato));
-
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
