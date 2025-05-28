@@ -1,6 +1,6 @@
 package com.example.demo.entity;
+
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "studenti")
@@ -19,31 +19,20 @@ public class Discente {
     @Column(nullable = false)
     private String matricola;
 
-    @Column(name = "età" , nullable = false)
+    @Column(name = "età", nullable = false)
     private Integer eta;
 
-    @Column(name = "città_residenza" , nullable = false)
+    @Column(name = "città_residenza", nullable = false)
     private String cittaResidenza;
-
-    @ManyToMany
-    @JoinTable(
-            name = "studenti_corsi",
-            joinColumns = @JoinColumn(name = "id_studenti"),
-            inverseJoinColumns = @JoinColumn(name = "id_corso")
-    )
-    private List<Corsi> corsi;
 
     public Discente() {}
 
-    public Discente(String nome, String cognome, String matricola, Integer eta, String cittaResidenza, List<Corsi> corsi) {
-
+    public Discente(String nome, String cognome, String matricola, Integer eta, String cittaResidenza) {
         this.nome = nome;
         this.cognome = cognome;
         this.matricola = matricola;
         this.eta = eta;
         this.cittaResidenza = cittaResidenza;
-        this.corsi = corsi;
-
     }
 
     public Long getId() {
@@ -92,13 +81,5 @@ public class Discente {
 
     public void setCittaResidenza(String cittaResidenza) {
         this.cittaResidenza = cittaResidenza;
-    }
-
-    public List<Corsi> getCorsi() {
-        return corsi;
-    }
-
-    public void setCorsi(List<Corsi> corsi) {
-        this.corsi = corsi;
     }
 }
