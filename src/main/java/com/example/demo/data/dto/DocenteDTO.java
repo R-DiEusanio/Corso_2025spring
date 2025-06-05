@@ -1,10 +1,13 @@
 package com.example.demo.data.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 
 public class DocenteDTO {
 
-    private Long id;
+    @JsonProperty("id_docente")
+    private Long idDocente;
     private String nome;
     private String cognome;
     private LocalDate dataNascita;
@@ -12,19 +15,19 @@ public class DocenteDTO {
     public DocenteDTO() {
     }
 
-    public DocenteDTO(Long id, String nome, String cognome, LocalDate dataNascita) {
-        this.id = id;
+    public DocenteDTO(Long idDocente,String nome, String cognome, LocalDate dataNascita) {
+        this.idDocente = idDocente;
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdDocente() {
+        return idDocente;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdDocente(Long idDocente) {
+        this.idDocente = idDocente;
     }
 
     public String getNome() {

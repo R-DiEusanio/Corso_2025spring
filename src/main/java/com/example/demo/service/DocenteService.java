@@ -2,8 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Docente;
 import com.example.demo.repository.DocenteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,15 +12,22 @@ import java.util.Optional;
 @Service
 public class DocenteService {
 
-    @Autowired
-    DocenteRepository docenteRepository;
+    private final DocenteRepository docenteRepository;
+
+    public DocenteService(DocenteRepository docenteRepository) {
+        this.docenteRepository = docenteRepository;
+    }
 
     public List<Docente> findAll() {
         return docenteRepository.findAll();
     }
 
     public Docente get(Long id) {
-        return docenteRepository.findById(id).orElseThrow();
+        return docenteRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Docente non trovato con id: " + id
+                ));
     }
 
     public Docente save(Docente d) {
@@ -36,6 +44,10 @@ public class DocenteService {
 
     public Optional<Docente> findByNomeCompleto(String nomeCompleto) {
         return docenteRepository.findByNomeCompleto(nomeCompleto);
+    }
+
+    public List<Docente> findByNomeAndCognome(String nome, String cognome) {
+        return docenteRepository.findByNomeAndCognome(nome, cognome);
     }
 
 }

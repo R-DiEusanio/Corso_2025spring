@@ -20,4 +20,12 @@ public interface DiscenteRepository extends JpaRepository<Discente, Long> {
     @Query("SELECT d FROM Discente d WHERE CONCAT(d.nome, ' ', d.cognome) = :nomeCompleto")
     Optional<Discente> findByNomeCompleto(@Param("nomeCompleto") String nomeCompleto);
 
-}
+    @Query(value = "SELECT d.* FROM discenti d " +
+            "INNER JOIN corsi_discenti cd ON d.id = cd.discente_id " +  // nome tabella corretto
+            "WHERE cd.corso_id = :corsoId", nativeQuery = true)
+    List<Discente> findDiscentiByCorsoId(@Param("corsoId") Long corsoId);
+
+    }
+
+
+

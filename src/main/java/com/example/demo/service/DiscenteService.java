@@ -2,7 +2,10 @@ package com.example.demo.service;
 import com.example.demo.entity.Discente;
 import com.example.demo.repository.DiscenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -45,5 +48,14 @@ public class DiscenteService {
         return discenteRepository.findByNomeCompleto(nomeCompleto);
     }
 
+
+    public List<Discente> findByCorsoId(Long corsoId) {
+        return discenteRepository.findDiscentiByCorsoId(corsoId);
+
     }
+
+}
+
+
+
 

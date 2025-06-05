@@ -60,4 +60,14 @@ public class DiscenteRestController {
         discenteService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/corso/{corsoId}")
+    public ResponseEntity<List<DiscenteDTO>> getDiscentiByCodiceCorso(@PathVariable Long corsoId) {
+        List<Discente> discenti = discenteService.findByCorsoId(corsoId);
+        List<DiscenteDTO> dto = discenti.stream()
+                .map(discenteMapper::toDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(dto);
+    }
+
 }

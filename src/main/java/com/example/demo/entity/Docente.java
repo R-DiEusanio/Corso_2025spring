@@ -10,7 +10,9 @@ public class Docente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Long id;
+
 
     @Column(nullable = false)
     private String nome;
