@@ -1,7 +1,7 @@
-Server:
-  port:8080
+server:
+  port: 8080
 
-Spring:
+spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/academy
     username: postgres
@@ -11,5 +11,5 @@ Spring:
   jpa:
     hibernate:
       ddl-auto: validate
-      show-sql: true
-      database-platform: org.hibernate.dialect.PostgresSQLDialect
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect

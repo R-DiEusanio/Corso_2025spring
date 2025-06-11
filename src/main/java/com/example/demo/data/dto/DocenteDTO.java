@@ -1,12 +1,12 @@
 package com.example.demo.data.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 
 public class DocenteDTO {
 
-    @JsonProperty("id_docente")
     private Long idDocente;
     private String nome;
     private String cognome;

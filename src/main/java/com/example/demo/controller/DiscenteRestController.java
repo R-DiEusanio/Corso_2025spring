@@ -35,7 +35,7 @@ public class DiscenteRestController {
     }
 
     @PostMapping
-    public ResponseEntity<DiscenteDTO> create(@RequestBody DiscenteDTO dto) {
+    public ResponseEntity<DiscenteDTO> createDiscente(@RequestBody DiscenteDTO dto) {
         Discente entity = discenteMapper.toEntity(dto);
         Discente salvato = discenteService.save(entity);
         return ResponseEntity.ok(discenteMapper.toDTO(salvato));

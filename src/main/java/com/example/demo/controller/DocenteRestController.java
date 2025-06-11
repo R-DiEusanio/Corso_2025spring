@@ -55,26 +55,8 @@ public class DocenteRestController {
         }
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<List<DocenteDTO>> searchByNomeECognome(
-            @RequestParam String nome,
-            @RequestParam String cognome) {
-        try {
-            List<Docente> trovati = docenteService.findByNomeAndCognome(nome, cognome);
-            List<DocenteDTO> dtos = trovati.stream()
-                    .map(docenteMapper::toDTO)
-                    .collect(Collectors.toList());
-            return ResponseEntity.ok(dtos);
-        } catch (Exception e) {
-            throw new ResponseStatusException(
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                "Errore durante la ricerca dei docenti: " + e.getMessage()
-            );
-        }
-    }
-
     @PostMapping
-    public ResponseEntity<DocenteDTO> create(@RequestBody DocenteDTO dto) {
+    public ResponseEntity<DocenteDTO> createDocente(@RequestBody DocenteDTO dto) {
         try {
             Docente entity = docenteMapper.toEntity(dto);
             Docente salvato = docenteService.save(entity);

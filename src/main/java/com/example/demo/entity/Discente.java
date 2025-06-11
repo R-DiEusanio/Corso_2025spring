@@ -8,6 +8,7 @@ public class Discente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(nullable = false)
@@ -16,13 +17,13 @@ public class Discente {
     @Column(nullable = false)
     private String cognome;
 
-    @Column(nullable = false)
+    @Column
     private String matricola;
 
-    @Column(name = "età", nullable = false)
+    @Column(name = "età")
     private Integer eta;
 
-    @Column(name = "città_residenza", nullable = false)
+    @Column(name = "città_residenza")
     private String cittaResidenza;
 
     public Discente() {}

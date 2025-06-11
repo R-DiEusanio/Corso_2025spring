@@ -10,9 +10,9 @@ public class Docente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column
     private Long id;
-
 
     @Column(nullable = false)
     private String nome;
@@ -20,7 +20,7 @@ public class Docente {
     @Column(nullable = false)
     private String cognome;
 
-    @Column(name = "Data_nascita", nullable = false)
+    @Column(name = "Data_nascita")
     @com.fasterxml.jackson.annotation.JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascita;
 

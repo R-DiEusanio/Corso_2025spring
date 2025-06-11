@@ -1,7 +1,10 @@
 package com.example.demo.data.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class DiscenteDTO {
 
+    private Long idDiscente;
     private String nome;
     private String cognome;
     private String matricola;
@@ -10,12 +13,22 @@ public class DiscenteDTO {
 
     public DiscenteDTO() {}
 
-    public DiscenteDTO(String nome, String cognome, String matricola, Integer eta, String cittaResidenza) {
+    public DiscenteDTO(String nome, String cognome, String matricola, Integer eta, String cittaResidenza,Long idDiscente) {
         this.nome = nome;
         this.cognome = cognome;
         this.matricola = matricola;
         this.eta = eta;
         this.cittaResidenza = cittaResidenza;
+        this.idDiscente = idDiscente;
+
+    }
+
+    public Long getIdDiscente() {
+        return idDiscente;
+    }
+
+    public void setIdDiscente(Long idDiscente) {
+        this.idDiscente = idDiscente;
     }
 
     public String getNome() {
