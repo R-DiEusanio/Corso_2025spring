@@ -20,9 +20,9 @@ jobs:
         ports:
           - 5432:5432
         env:
-          POSTGRES_USER: test
-          POSTGRES_PASSWORD: test
-          POSTGRES_DB: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: Riccardo2001
+          POSTGRES_DB: academy
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
