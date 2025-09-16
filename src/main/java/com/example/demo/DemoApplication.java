@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
+// Test GitHub Actions
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 public class DemoApplication extends SpringBootServletInitializer {
 
