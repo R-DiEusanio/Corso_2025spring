@@ -1,33 +1,44 @@
 name: Spring Boot CI
 
-# Quando eseguire il workflow
 on:
-  push:        # Ogni volta che fai push
+  push:
     branches:
       - main
       - postman
-  pull_request: # Ogni volta che apri una PR
+  pull_request:
     branches:
       - main
       - postman
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Ambiente di esecuzione
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
-      # 1. Checkout del codice
       - name: Checkout del repository
         uses: actions/checkout@v3
 
-      # 2. Setup di Java 17
-      - name: Setup JDK 24
+      - name: Setup JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # 3. Cache delle dipendenze Maven per velocizzare la build
       - name: Cache Maven
         uses: actions/cache@v3
         with:
@@ -35,6 +46,12 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven
 
-      # 4. Esegui build e test con Maven
+      - name: Wait for PostgreSQL
+        run: |
+          for i in {1..10}; do
+            pg_isready -h localhost -p 5432 && break
+            sleep 2
+          done
+
       - name: Build e Test con Maven
         run: mvn clean install -B
