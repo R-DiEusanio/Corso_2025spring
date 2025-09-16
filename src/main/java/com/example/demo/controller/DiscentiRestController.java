@@ -1,13 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.data.dto.DiscenteDTO;
-import com.example.demo.data.dto.DocenteDTO;
 import com.example.demo.entity.Discente;
-import com.example.demo.entity.Docente;
 import com.example.demo.mapper.DiscenteMapper;
 import com.example.demo.service.CorsiService;
 import com.example.demo.service.DiscenteService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,16 +13,15 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/discenti")
-public class DiscenteRestController{
+public class DiscentiRestController {
 
-    @Autowired
-    private DiscenteService discenteService;
+    private final DiscenteService discenteService;
+    private final DiscenteMapper discenteMapper;
 
-    @Autowired
-    private DiscenteMapper discenteMapper;
-
-    @Autowired
-    private CorsiService corsiService;
+    public DiscentiRestController(DiscenteService discenteService, DiscenteMapper discenteMapper, CorsiService corsiService) {
+        this.discenteService = discenteService;
+        this.discenteMapper = discenteMapper;
+    }
 
     @GetMapping
     public ResponseEntity<List<DiscenteDTO>> getAll() {
@@ -69,7 +65,6 @@ public class DiscenteRestController{
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-
         discenteService.delete(id);
         return ResponseEntity.noContent().build();
 

@@ -16,5 +16,6 @@ public interface DocenteRepository extends JpaRepository<Docente, Long> {
     @Query("SELECT d FROM Docente d WHERE CONCAT(d.nome, ' ', d.cognome) = :nomeCompleto")
     Optional<Docente> findByNomeCompleto(@Param("nomeCompleto") String nomeCompleto);
 
+    List<Docente> findAllByOrderByCognomeAsc();
 
 }

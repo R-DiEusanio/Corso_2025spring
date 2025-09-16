@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestione Competenze Docenti</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <h1 class="mb-4 text-center">Gestione Competenze Docenti</h1>
+
+    <div id="docenti-container" class="accordion"></div>
+</div>
+
+<script>
+    async function caricaDocenti() {
+        const res = await fetch("/competenze/docenti");
+        const docenti = await res.json();
+        const container = document.getElementById("docenti-container");
+        container.innerHTML = "";
+
+        docenti.forEach(d => {
+            let competenzeHtml = d.competenze.map(c => `
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                ${c.nome} (${c.livello})
+                <span>
+                    <button class="btn btn-sm btn-primary me-2" onclick="modificaCompetenza(${c.id}, '${c.nome}', '${c.livello}')">Modifica</button>
+                    <button class="btn btn-sm btn-danger" onclick="eliminaCompetenza(${c.id})">Elimina</button>
+                </span>
+            </li>
+        `).join("");
+
+            container.innerHTML += `
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapse${d.id}">
+                    ${d.cognome} ${d.nome}
+                </button>
+            </h2>
+            <div id="collapse${d.id}" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <ul class="list-group mb-3">
+                        ${competenzeHtml || "<li class='list-group-item'>Nessuna competenza</li>"}
+                    </ul>
+                    <form onsubmit="aggiungiCompetenza(event, ${d.id})" class="d-flex gap-2">
+                        <input type="text" name="nome" placeholder="Competenza" class="form-control" required>
+                        <input type="text" name="livello" placeholder="Livello" class="form-control" required>
+                        <button class="btn btn-success">Aggiungi</button>
+                    </form>
+                </div>
+            </div>
+        </div>`;
+        });
+    }
+
+    async function aggiungiCompetenza(e, docenteId) {
+        e.preventDefault();
+        const form = e.target;
+        const nome = form.nome.value;
+        const livello = form.livello.value;
+
+        await fetch("/competenze", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ docenteId, nome, livello })
+        });
+
+        await caricaDocenti();
+    }
+
+    async function modificaCompetenza(id, nome, livello) {
+        const nuovoNome = prompt("Nuovo nome:", nome);
+        const nuovoLivello = prompt("Nuovo livello:", livello);
+        if (nuovoNome && nuovoLivello) {
+            await fetch(`/competenze/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nome: nuovoNome, livello: nuovoLivello })
+            });
+            await caricaDocenti();
+        }
+    }
+
+    async function eliminaCompetenza(id) {
+        if (confirm("Sei sicuro di voler eliminare questa competenza?")) {
+            await fetch(`/competenze/${id}`, { method: "DELETE" });
+            await caricaDocenti();
+        }
+    }
+
+    caricaDocenti();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
