@@ -1,0 +1,37 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - deploy-to-ec2
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout source
+        uses: actions/checkout@v3
+      - name: actions/setup-java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Build Project
+        run: mvn clean install -DskipTests
+      - name: Login to docker hub
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+      - name: Build Docker Image
+        run: docker build -t integarationdx/corso2025springwithjsp-master .
+      - name: Publish image to docker hub
+        run: docker push integarationdx/corso2025springwithjsp-master:latest
+
+  deploy:
+    needs: build
+    runs-on: [aws-ec2]
+    steps:
+      - name: Pull Image from Docker Hub
+        run: docker pull integarationdx/corso2025springwithjsp-master:latest
+      - name: Delete Old Container
+        run: docker rm -f corso2025springwithjsp-master-container
+      - name: Run Docker Container
+        run: docker run -d -p 8081:8081 --name corso2025springwithjsp-master-container integarationdx/corso2025springwithjsp-master
